@@ -13,12 +13,20 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", {
+    yourChoice: "", // default for first page load
+    recipeJSONhai: recipeJSON // ✅ required!
+  });
 });
 
 app.post("/recipe", (req, res) => {
   //Step 3: Write your code here to make this behave like the solution website.
   //Step 4: Add code to views/index.ejs to use the recieved recipe object.
+  let choice = req.body["choice"];
+  res.render("index.ejs",{
+    yourChoice: choice,
+    recipeJSONhai: recipeJSON
+  });
 });
 
 app.listen(port, () => {
